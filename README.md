@@ -1,8 +1,10 @@
 # Idea
 
-Лёгкий и быстрый мобильный блокнот для идей в духе Obsidian. Нативный Android, Jetpack Compose, полностью офлайн.
+Лёгкий и быстрый мобильный блокнот для идей в духе Obsidian. Нативный Android, Jetpack Compose, всё работает полностью офлайн.
 
-[![Android CI](https://github.com/zyutsu/idea/actions/workflows/android.yml/badge.svg)](https://github.com/zyutsu/idea/actions/workflows/android.yml) [![Release](https://img.shields.io/github/v/release/zyutsu/idea?label=APK)](https://github.com/zyutsu/idea/releases/latest) Заметки со связями [[wiki]], теги #, интерактивный граф, мгновенный fuzzy-поиск и виджет с чек-ином за день.
+Заметки со связями [[wiki]], теги, интерактивный граф, мгновенный fuzzy-поиск, быстрый захват мысли в один тап и виджет с ежедневным чек-ином «план выполнен».
+
+[![Android CI](https://github.com/zyutsu/idea/actions/workflows/android.yml/badge.svg)](https://github.com/zyutsu/idea/actions/workflows/android.yml) [![Release](https://img.shields.io/github/v/release/zyutsu/idea?label=APK)](https://github.com/zyutsu/idea/releases/latest)
 
 ## Возможности
 
