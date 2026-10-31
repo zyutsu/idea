@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Idea</string>
+    <string name="capture_shortcut">Записать идею</string>
+    <string name="widget_description">Идея дня: быстрый захват мысли и отметка плана</string>
+</resources>
+

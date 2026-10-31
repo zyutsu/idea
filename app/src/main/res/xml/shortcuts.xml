@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="capture"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_capture"
+        android:shortcutShortLabel="@string/capture_shortcut">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="dev.zyutsu.idea"
+            android:targetClass="dev.zyutsu.idea.MainActivity">
+            <extra android:name="capture" android:value="true" />
+        </intent>
+    </shortcut>
+</shortcuts>
+
