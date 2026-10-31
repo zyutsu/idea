@@ -16,11 +16,14 @@ import dev.zyutsu.idea.ui.IdeaApplication
 import dev.zyutsu.idea.ui.theme.Palette
 
 class MainActivity : ComponentActivity() {
+    private val pendingNote = mutableStateOf<String?>(null)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val capture = intent?.getBooleanExtra(EXTRA_CAPTURE, false) == true
+        intent?.getStringExtra(EXTRA_OPEN_NOTE)?.let { pendingNote.value = it }
         if (capture) {
             startActivity(Intent(this, CaptureActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
@@ -28,7 +31,13 @@ class MainActivity : ComponentActivity() {
             val store = remember { LocalSettings.get(this) }
             val palette by store.palette.collectAsState(initial = Palette.EMBER)
             var showCapture by remember { mutableStateOf(false) }
-            IdeaApplication(palette = palette, openCapture = showCapture, onCaptureDismiss = { showCapture = false })
+            IdeaApplication(
+                palette = palette,
+                openCapture = showCapture,
+                onCaptureDismiss = { showCapture = false },
+                openNoteId = pendingNote.value,
+                onNoteOpened = { pendingNote.value = null }
+            )
         }
     }
 
@@ -40,10 +49,12 @@ class MainActivity : ComponentActivity() {
                 Intent(this, CaptureActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
         }
+        intent.getStringExtra(EXTRA_OPEN_NOTE)?.let { pendingNote.value = it }
     }
 
     companion object {
         const val EXTRA_CAPTURE = "capture"
+        const val EXTRA_OPEN_NOTE = "openNote"
     }
 }
 

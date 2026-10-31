@@ -37,8 +37,7 @@ class CaptureActivity : ComponentActivity() {
                         onOpen = {
                             startActivity(
                                 android.content.Intent(this, MainActivity::class.java)
-                                    .putExtra(MainActivity.EXTRA_CAPTURE, false)
-                                    .putExtra("openNote", it)
+                                    .putExtra(MainActivity.EXTRA_OPEN_NOTE, it)
                                     .addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)
                             )
                             finish()

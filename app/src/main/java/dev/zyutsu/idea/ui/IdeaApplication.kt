@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -42,11 +43,24 @@ object Routes {
 }
 
 @Composable
-fun IdeaApplication(palette: Palette, openCapture: Boolean, onCaptureDismiss: () -> Unit) {
+fun IdeaApplication(
+    palette: Palette,
+    openCapture: Boolean,
+    onCaptureDismiss: () -> Unit,
+    openNoteId: String? = null,
+    onNoteOpened: () -> Unit = {}
+) {
     val context = LocalContext.current
     val settings = remember { LocalSettings.get(context) }
     val repo = remember { (context.applicationContext as dev.zyutsu.idea.IdeaApp).repository }
     val nav: NavHostController = rememberNavController()
+
+    LaunchedEffect(openNoteId) {
+        if (!openNoteId.isNullOrEmpty()) {
+            nav.navigate(Routes.note(openNoteId))
+            onNoteOpened()
+        }
+    }
 
     IdeaTheme(palette = palette) {
         CompositionLocalProvider(LocalSettingsKey provides settings) {

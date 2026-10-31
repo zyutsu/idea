@@ -82,11 +82,17 @@ fun HomeRoute(
 
     val notes by repo.allNotes.collectAsState(emptyList())
     val tagCounts by repo.tagCounts.collectAsState(emptyList())
+    val favorites by repo.favorites.collectAsState(emptyList())
     val weekDays = remember { Day.last(7) }
     val checkins by repo.observeCheckins(weekDays).collectAsState(emptyList())
     var cards by remember { mutableStateOf<List<NoteCard>>(emptyList()) }
+    var favCards by remember { mutableStateOf<List<NoteCard>>(emptyList()) }
     var filterTag by remember { mutableStateOf<String?>(null) }
     var showCapture by remember { mutableStateOf(false) }
+
+    LaunchedEffect(favorites) {
+        favCards = repo.cardsFor(favorites)
+    }
 
     LaunchedEffect(notes, filterTag) {
         val visible = ArrayList<dev.zyutsu.idea.data.Note>(notes.size)
@@ -166,6 +172,14 @@ fun HomeRoute(
                         }
                     }
                 }
+            }
+
+            if (favCards.isNotEmpty() && filterTag == null) {
+                item { SectionHeader("Избранное", color = palette.textDim) }
+                items(favCards, key = { "fav-" + it.id }) { card ->
+                    NoteRow(card = card, palette = palette, onClick = { onOpenNote(card.id) })
+                }
+                item { SectionHeader("Все заметки", color = palette.textDim) }
             }
 
             if (cards.isEmpty()) {
